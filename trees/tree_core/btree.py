@@ -39,12 +39,6 @@ class Structure:
         
         return sum_left if sum_left > sum_right else sum_right
 
-    def rotation(self, r_type):
-        if r_type == 'R':
-            pass
-        elif r_type == 'L':
-            pass
-
     def _search_node(self, node, node_to_search):
         if node is None:
             return None
@@ -154,30 +148,3 @@ class Structure:
         root = self.root
         new_node = Node(value)
         self._add_node(root, new_node)
-
-    def start(self):
-        while True:
-            order = int(input("options:\n1) Add node\n2) Delete node\n3) Search node\n4) Height \n5) Print Tree\n6) Quit\n\nOption selected? "))
-            if order == 1:
-                node_value = int(input("Insert value: "))
-                self.add_node(node_value)
-            if order == 2:
-                node_value = int(input("Insert value: "))
-                self.remove_node(node_value)
-            if order == 3:
-                node_value = int(input("\nInsert value: "))
-                print('Found' if self.search_node(node_value) is not None else 'Not found')
-            
-            if order == 4:
-                print('Height: ', self.node_height(self.root), '\n' )
-            
-            if order == 5:
-                self.print_pre_order(self.root)
-
-            if order == 6:
-                break
-            
-
-
-binary_tree = Structure()
-binary_tree.start()
