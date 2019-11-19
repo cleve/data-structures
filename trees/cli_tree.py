@@ -1,4 +1,5 @@
 from tree_core import btree
+from tree_core import avl
 
 def start():
     order = int(input("\nSelect Tree type:\n\n1) Binary tree\n2) AVL Tree\n3) Quit\n\nOption selected? "))
@@ -7,8 +8,7 @@ def start():
         print('BINARY TREE\n')
         tree = btree.Structure()
     elif order == 2:
-        print('Not implemented yet')
-        return
+        tree = avl.AVL()
     else:
         return
     while True:
