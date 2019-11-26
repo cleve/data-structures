@@ -13,3 +13,6 @@ python3 cli_tree.py
 
 python3 cli_list.py
 
+## Hash Table
+
+Not implemented yet
