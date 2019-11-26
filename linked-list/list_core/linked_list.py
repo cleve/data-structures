@@ -24,9 +24,31 @@ class LinkedList:
             self.root = Node(value)
             self.last_node = self.root
             return
-
         self.last_node.next = Node(value)
         self.last_node = self.last_node.next
+
+    def _find_node(self, value):
+        temporal_pointer = self.root
+        while True:
+            if temporal_pointer.value == value:
+                return temporal_pointer
+            # End of linked list.
+            if temporal_pointer.next is None:
+                break
+            temporal_pointer = temporal_pointer.next
+        return None
+
+    def find_node(self, value):
+        """Return True if the element exists, False otherwise
+        """
+        return self._find_node(value) is not None
+
+    def remove_node(self, value):
+        node_to_remove = self._find_node(value)
+        if node_to_remove is None:
+            return
+        # Removing it.
+
 
     
 ll = LinkedList()
@@ -40,3 +62,6 @@ ll.print_list()
 
 print(ll.root.value)
 print(ll.last_node.value)
+
+print(ll.find_node(22) == True)
+print(ll.find_node(222) == True)
