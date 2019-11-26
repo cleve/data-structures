@@ -61,26 +61,3 @@ class LinkedList:
             if temporal_pointer.next is None:
                 break
             temporal_pointer = temporal_pointer.next
-
-
-    
-ll = LinkedList()
-ll.add_node(99)
-ll.add_node(1)
-ll.add_node(22)
-ll.add_node(24)
-ll.add_node(29)
-
-ll.print_list()
-
-ll.remove_node(29)
-
-print("===============")
-
-ll.print_list()
-
-print(ll.root.value)
-print(ll.last_node.value)
-
-print(ll.find_node(22) == True)
-print(ll.find_node(222) == True)

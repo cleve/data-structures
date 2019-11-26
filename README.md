@@ -7,11 +7,15 @@ structures, with a friendly CLI for each one.
 The tree structures is under the **trees** directory. To use the interactive
 CLI, you need to run:
 
+```python
 python3 cli_tree.py
+```
 
 ## Linked list
 
+```python
 python3 cli_list.py
+```
 
 ## Hash Table
 
