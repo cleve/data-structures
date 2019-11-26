@@ -17,6 +17,7 @@ class Node:
 class Structure:
     def __init__(self):
         self.root = None
+        self.is_avl = False
 
     def print_pre_order(self, node):
         if node is None:

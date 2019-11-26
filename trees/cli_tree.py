@@ -9,6 +9,7 @@ def start():
         tree = btree.Structure()
     elif order == 2:
         tree = avl.AVL()
+        tree.is_avl = True
     else:
         return
     while True:
