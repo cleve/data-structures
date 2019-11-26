@@ -48,6 +48,19 @@ class LinkedList:
         if node_to_remove is None:
             return
         # Removing it.
+        temporal_pointer = self.root
+        # Border.
+        if temporal_pointer.value == value:
+            self.root = None
+        # General.
+        while True:
+            if temporal_pointer.next is not None and temporal_pointer.next.value == value:
+                temporal_pointer.next = temporal_pointer.next.next
+                break
+            # End of linked list.
+            if temporal_pointer.next is None:
+                break
+            temporal_pointer = temporal_pointer.next
 
 
     
@@ -57,6 +70,12 @@ ll.add_node(1)
 ll.add_node(22)
 ll.add_node(24)
 ll.add_node(29)
+
+ll.print_list()
+
+ll.remove_node(29)
+
+print("===============")
 
 ll.print_list()
 
