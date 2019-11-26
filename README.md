@@ -11,5 +11,5 @@ python3 cli_tree.py
 
 ## Linked list
 
-Not ready.
+python3 cli_list.py
 
