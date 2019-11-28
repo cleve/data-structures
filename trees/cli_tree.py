@@ -30,7 +30,9 @@ def start():
             print('Height: ', tree.node_height(tree.root), '\n' )
         
         if order == 5:
+            print('\n')
             tree.print_pre_order(tree.root)
+            print('\n')
 
         if order == 6:
             break

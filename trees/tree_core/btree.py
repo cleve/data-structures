@@ -68,9 +68,21 @@ class Structure:
         copy_parent.right_child = None
         return bigest_node
 
-    def _remove_node(self, parent_node, node_to_remove):
+    def _remove_node(self, parent_node, node_to_remove, parent_reference=None):
         left_child = parent_node.left_child
         right_child = parent_node.right_child
+        # Border case.
+        if parent_node.value == node_to_remove.value and left_child is None and right_child is None:
+            # Root.
+            if parent_reference is None:
+                self.root = None
+                return True
+            if parent_reference.left_child is not None and parent_reference.left_child.value == node_to_remove.value:
+                parent_reference.left_child = None
+            if parent_reference.right_child is not None and parent_reference.right_child.value == node_to_remove.value:
+                parent_reference.right_child = None
+            return True
+
         if left_child is not None and left_child.value == node_to_remove.value:
             # Simple cases.
             if node_to_remove.left_child is None and node_to_remove.right_child is not None:
@@ -108,10 +120,11 @@ class Structure:
                 return True
 
         if node_to_remove.value < parent_node.value:
-            return self._remove_node(left_child, node_to_remove)
-        else:
-            return self._remove_node(right_child, node_to_remove)
+            return self._remove_node(left_child, node_to_remove, parent_node)
         
+        elif node_to_remove.value > parent_node.value:
+            return self._remove_node(right_child, node_to_remove, parent_node)
+            
         return False
 
     def _add_node(self, node, new_node):
