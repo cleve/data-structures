@@ -5,8 +5,9 @@ class Node:
         self.value = value
         self.left_child = None
         self.right_child = None
-
         self.height = 0
+
+        # For AVL rotations.
         self.factor = 0
 
     def dispose(self):
@@ -70,7 +71,7 @@ class Structure:
     def _remove_node(self, parent_node, node_to_remove):
         left_child = parent_node.left_child
         right_child = parent_node.right_child
-        if left_child.value == node_to_remove.value:
+        if left_child is not None and left_child.value == node_to_remove.value:
             # Simple cases.
             if node_to_remove.left_child is None and node_to_remove.right_child is not None:
                 parent_node.left_child = node_to_remove.right_child
@@ -88,7 +89,7 @@ class Structure:
                 new_node.right_child = node_to_remove.right_child
                 return True
         
-        elif right_child.value == node_to_remove.value:
+        elif right_child is not None and right_child.value == node_to_remove.value:
             # Simple cases.
             if node_to_remove.left_child is None and node_to_remove.right_child is not None:
                 parent_node.right_child = node_to_remove.right_child
@@ -117,14 +118,26 @@ class Structure:
         if new_node.value < node.value:
             if node.left_child is None:
                 node.left_child = new_node
+                node.height = self.node_height(node)
+                print('Height of ', node.value, ' is ', node.height)
+                return new_node
             else:
-                self._add_node(node.left_child, new_node)
+                rn = self._add_node(node.left_child, new_node)
+                node.height = self.node_height(node)
+                print('Height of ', node.value, ' is ', node.height)
+                return rn
         else:
             if node.right_child is None:
                 node.right_child = new_node
+                node.height = self.node_height(node)
+                print('Height of ', node.value, ' is ', node.height)
+                return new_node
             else:
-                self._add_node(node.right_child, new_node)
-        return
+                rn = self._add_node(node.right_child, new_node)
+                node.height = self.node_height(node)
+                print('Height of ', node.value, ' is ', node.height)
+                return rn
+        return node
     
     def search_node(self, value):
         root = self.root
@@ -138,7 +151,6 @@ class Structure:
             return False
         if self._remove_node(root, node_found):
             node_found = None
-            print('Deleted!')
             return
 
     def add_node(self, value):

@@ -17,9 +17,11 @@ def start():
         if order == 1:
             node_value = int(input("Insert value: "))
             tree.add_node(node_value)
+            print('Done! \n')
         if order == 2:
-            node_value = int(input("Insert value: "))
+            node_value = int(input("Delete value: "))
             tree.remove_node(node_value)
+            print('Deleted! \n')
         if order == 3:
             node_value = int(input("\nInsert value: "))
             print('Found' if tree.search_node(node_value) is not None else 'Not found')
