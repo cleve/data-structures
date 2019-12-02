@@ -23,18 +23,20 @@ def start():
             tree.remove_node(node_value)
             print('Deleted! \n')
         if order == 3:
-            node_value = int(input("\nInsert value: "))
+            node_value = int(input("\nSearched value: "))
             print('Found' if tree.search_node(node_value) is not None else 'Not found')
         
         if order == 4:
             print('Height: ', tree.node_height(tree.root), '\n' )
         
         if order == 5:
-            print('\n')
             tree.print_pre_order(tree.root)
             print('\n')
 
         if order == 6:
             break
+
+        else:
+            print('Order not recognized')
 
 start()
