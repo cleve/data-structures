@@ -27,20 +27,6 @@ class Structure:
         self.print_pre_order(node.left_child)
         self.print_pre_order(node.right_child)
 
-    def node_height(self, node):
-        sum_left = 0
-        sum_right = 0 
-        # Edge case 1.
-        if node is None:
-            return 0
-        if node.left_child is not None:
-            sum_left = self.node_height(node.left_child) + 1
-
-        if node.right_child is not None:
-            sum_right = self.node_height(node.right_child) + 1
-        
-        return sum_left if sum_left > sum_right else sum_right
-
     def _search_node(self, node, node_to_search):
         if node is None:
             return None
@@ -157,24 +143,16 @@ class Structure:
         if new_node.value < node.value:
             if node.left_child is None:
                 node.left_child = new_node
-                node.height = self.node_height(node)
-                print('Height of ', node.value, ' is ', node.height)
                 return new_node
             else:
                 rn = self._add_node(node.left_child, new_node)
-                node.height = self.node_height(node)
-                print('Height of ', node.value, ' is ', node.height)
                 return rn
         else:
             if node.right_child is None:
                 node.right_child = new_node
-                node.height = self.node_height(node)
-                print('Height of ', node.value, ' is ', node.height)
                 return new_node
             else:
                 rn = self._add_node(node.right_child, new_node)
-                node.height = self.node_height(node)
-                print('Height of ', node.value, ' is ', node.height)
                 return rn
         return node
     

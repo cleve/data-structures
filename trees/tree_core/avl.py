@@ -32,3 +32,51 @@ class AVL (btree.Structure):
             return self.right_rotation(parent_node)
         elif r_type == 'L':
             return self.left_rotation(parent_node)
+
+    def node_height(self, node):
+        sum_left = 0
+        sum_right = 0 
+        # Edge case 1.
+        if node is None:
+            return 0
+        if node.left_child is not None:
+            sum_left = self.node_height(node.left_child) + 1
+
+        if node.right_child is not None:
+            sum_right = self.node_height(node.right_child) + 1
+        
+        return sum_left if sum_left > sum_right else sum_right
+    
+    def _add_avl_node(self, node, new_node):
+        if new_node.value < node.value:
+            if node.left_child is None:
+                node.left_child = new_node
+                node.height = self.node_height(node)
+                print('Height of ', node.value, ' is ', node.height)
+                return new_node
+            else:
+                rn = self._add_avl_node(node.left_child, new_node)
+                node.height = self.node_height(node)
+                print('Height of ', node.value, ' is ', node.height)
+                return rn
+        else:
+            if node.right_child is None:
+                node.right_child = new_node
+                node.height = self.node_height(node)
+                print('Height of ', node.value, ' is ', node.height)
+                return new_node
+            else:
+                rn = self._add_avl_node(node.right_child, new_node)
+                node.height = self.node_height(node)
+                print('Height of ', node.value, ' is ', node.height)
+                return rn
+        return node
+
+    def add_node(self, value):
+        # Border case.
+        if self.root is None:
+            self.root = Node(value)
+            return
+        root = self.root
+        new_node = Node(value)
+        self._add_avl_node(root, new_node)

@@ -36,7 +36,4 @@ def start():
         if order == 6:
             break
 
-        else:
-            print('Order not recognized')
-
 start()
