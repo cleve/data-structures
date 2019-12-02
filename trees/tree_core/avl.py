@@ -38,7 +38,7 @@ class AVL (btree.Structure):
         sum_right = 0 
         # Edge case 1.
         if node is None:
-            return 0
+            return 1
         if node.left_child is not None:
             sum_left = self.node_height(node.left_child) + 1
 
@@ -47,8 +47,18 @@ class AVL (btree.Structure):
         
         return sum_left if sum_left > sum_right else sum_right
     
+    def get_factor(self, node):
+        left_height = 0
+        right_height = 0
+        if node.left_child is not None:
+            left_height = node.left_child.height
+        if node.right_child is not None:
+            right_height = node.right_child.height
+        return right_height - left_height
+    
     def _add_avl_node(self, node, new_node):
         if new_node.value < node.value:
+            # Adding the node
             if node.left_child is None:
                 node.left_child = new_node
                 node.height = self.node_height(node)
@@ -57,10 +67,17 @@ class AVL (btree.Structure):
             else:
                 rn = self._add_avl_node(node.left_child, new_node)
                 node.height = self.node_height(node)
-                print('Height of ', node.value, ' is ', node.height)
+                print('Height of ', node.value, ' is: ', node.height)
+                # Self-balance
+                if self.get_factor(node) > 1:
+                    print('Node ', node.value,' needs a right rotation')
+                if self.get_factor(node) < -1:
+                    print('Node ', node.value,' needs a left rotation')
+                
                 return rn
         else:
             if node.right_child is None:
+                # Adding the node
                 node.right_child = new_node
                 node.height = self.node_height(node)
                 print('Height of ', node.value, ' is ', node.height)
@@ -68,7 +85,13 @@ class AVL (btree.Structure):
             else:
                 rn = self._add_avl_node(node.right_child, new_node)
                 node.height = self.node_height(node)
-                print('Height of ', node.value, ' is ', node.height)
+                print('Height of ', node.value, ' is: ', node.height)
+                # Self-balance
+                if self.get_factor(node) > 1:
+                    print('Node ', node.value,' needs a right rotation')
+                if self.get_factor(node) < -1:
+                    print('Node ', node.value,' needs a left rotation')
+                
                 return rn
         return node
 
@@ -80,3 +103,9 @@ class AVL (btree.Structure):
         root = self.root
         new_node = Node(value)
         self._add_avl_node(root, new_node)
+        # Border Self-balance
+        print('ROOT FACTOR: ', self.get_factor(root))
+        if self.get_factor(root) > 1:
+            print('Node ', root.value,' needs a right rotation')
+        if self.get_factor(root) < -1:
+            print('Node ', root.value,' needs a left rotation')

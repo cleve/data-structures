@@ -8,6 +8,7 @@ def start():
         print('BINARY TREE\n')
         tree = btree.Structure()
     elif order == 2:
+        print('AVL TREE\n')
         tree = avl.AVL()
         tree.is_avl = True
     else:
