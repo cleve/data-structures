@@ -54,6 +54,7 @@ class Structure:
 
     def _search_smallest_into_rigth(self, node):
         smallest_node = node.right_child
+        copy_parent = smallest_node
         while smallest_node.left_child is not None:
             copy_parent = smallest_node
             smallest_node = smallest_node.left_child
@@ -62,71 +63,96 @@ class Structure:
 
     def _search_bigest_into_left(self, node):
         bigest_node = node.left_child
+        copy_parent = bigest_node
         while bigest_node.right_child is not None:
             copy_parent = bigest_node
             bigest_node = bigest_node.right_child
         copy_parent.right_child = None
         return bigest_node
 
-    def _remove_node(self, parent_node, node_to_remove, parent_reference=None):
-        left_child = parent_node.left_child
-        right_child = parent_node.right_child
-        # Border case.
-        if parent_node.value == node_to_remove.value and left_child is None and right_child is None:
-            # Root.
-            if parent_reference is None:
-                self.root = None
-                return True
-            if parent_reference.left_child is not None and parent_reference.left_child.value == node_to_remove.value:
-                parent_reference.left_child = None
-            if parent_reference.right_child is not None and parent_reference.right_child.value == node_to_remove.value:
-                parent_reference.right_child = None
-            return True
-
-        if left_child is not None and left_child.value == node_to_remove.value:
-            # Simple cases.
-            if node_to_remove.left_child is None and node_to_remove.right_child is not None:
-                parent_node.left_child = node_to_remove.right_child
+    def _remove_node(self, current_node, node_to_remove):
+        # Inner function to reallocate pointers.
+        def new_pointers(parent_node, node_to_remove, direction):
+            # Simple cases left.
+            if direction == 'L' and node_to_remove.left_child is None and node_to_remove.right_child is not None:
+                # Used only to remove root node.
+                if parent_node is None:
+                    self.root = node_to_remove.right_child
+                else:
+                    parent_node.left_child = node_to_remove.right_child
                 return True
 
-            elif node_to_remove.left_child is not None and node_to_remove.right_child is None:
-                parent_node.left_child = node_to_remove.left_child
+            elif direction == 'L' and node_to_remove.left_child is not None and node_to_remove.right_child is None:
+                # Used only to remove root node.
+                if parent_node is None:
+                    self.root = node_to_remove.left_child
+                else:
+                    parent_node.left_child = node_to_remove.left_child
+                return True
+
+            # Both not nulls.
+            elif direction == 'L' and node_to_remove.left_child is not None and node_to_remove.right_child is not None: 
+                new_node = self._search_smallest_into_rigth(node_to_remove)
+                # Used only to remove root node.
+                if parent_node is None:
+                    self.root = new_node
+                else:
+                    parent_node.left_child = new_node
+                new_node.left_child = node_to_remove.left_child
+                if new_node.value == node_to_remove.right_child.value:
+                    return True
+                new_node.right_child = node_to_remove.right_child
                 return True
 
             # Both nulls.
-            elif node_to_remove.left_child is not None and node_to_remove.right_child is not None: 
-                new_node = self._search_smallest_into_rigth(node_to_remove)
-                parent_node.left_child = new_node
-                new_node.left_child = node_to_remove.left_child
-                new_node.right_child = node_to_remove.right_child
+            elif direction == 'L' and node_to_remove.left_child is None and node_to_remove.right_child is None:
+                if parent_node is None:
+                    self.root = None
+                else:
+                    parent_node.left_child = None
                 return True
-        
-        elif right_child is not None and right_child.value == node_to_remove.value:
-            # Simple cases.
-            if node_to_remove.left_child is None and node_to_remove.right_child is not None:
+    
+            # Simple cases right.
+            elif direction == 'R' and node_to_remove.left_child is None and node_to_remove.right_child is not None:
                 parent_node.right_child = node_to_remove.right_child
                 return True
 
-            elif node_to_remove.left_child is not None and node_to_remove.right_child is None:
+            elif direction == 'R' and node_to_remove.left_child is not None and node_to_remove.right_child is None:
                 parent_node.right_child = node_to_remove.left_child
                 return True
 
-            # Both nulls.
-            elif node_to_remove.left_child is not None and node_to_remove.right_child is not None: 
+            # Both not nulls.
+            elif direction == 'R' and node_to_remove.left_child is not None and node_to_remove.right_child is not None: 
                 new_node = self._search_bigest_into_left(node_to_remove)
                 parent_node.right_child = new_node
-                new_node.left_child = node_to_remove.left_child
                 new_node.right_child = node_to_remove.right_child
+                if new_node.value == new_node.left_child.value:
+                    return True
+                new_node.left_child = node_to_remove.left_child
                 return True
 
-        if node_to_remove.value < parent_node.value:
-            return self._remove_node(left_child, node_to_remove, parent_node)
-        
-        elif node_to_remove.value > parent_node.value:
-            return self._remove_node(right_child, node_to_remove, parent_node)
-            
-        return False
+            # Both nulls.
+            elif direction == 'R' and node_to_remove.left_child is None and node_to_remove.right_child is None: 
+                parent_node.right_child = None
+                return True
+            return False
 
+        if node_to_remove.value < current_node.value:
+            if self._remove_node(current_node.left_child, node_to_remove) == 'found':
+                return new_pointers(current_node, current_node.left_child, 'L')
+        
+        elif node_to_remove.value > current_node.value:
+            if self._remove_node(current_node.right_child, node_to_remove) == 'found':
+                return new_pointers(current_node, current_node.right_child, 'R')
+
+        elif node_to_remove.value == current_node.value:
+            # Root node.
+            if node_to_remove == self.root:
+                return new_pointers(None, self.root, 'L')
+            return 'found'
+
+        return True
+    
     def _add_node(self, node, new_node):
         if new_node.value < node.value:
             if node.left_child is None:
