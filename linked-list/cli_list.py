@@ -8,10 +8,10 @@ def start():
             node_value = int(input("Insert value: "))
             l_list.add_node(node_value)
         if order == 2:
-            node_value = int(input("Insert value: "))
+            node_value = int(input("Delete value: "))
             l_list.remove_node(node_value)
         if order == 3:
-            node_value = int(input("\nInsert value: "))
+            node_value = int(input("\nSearch value: "))
             print('Found' if l_list.find_node(node_value) is True else 'Not found')
         
         if order == 4:
