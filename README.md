@@ -25,3 +25,8 @@ python3 cli_list.py
 ## Hash Table
 
 Not implemented yet
+
+## DEV
+
+In every main class there is a DEBUG variable, setting it to True, you will be able to 
+see extra information in the CLI.

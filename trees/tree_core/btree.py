@@ -7,7 +7,7 @@ class Node:
         self.right_child = None
         self.height = 0
 
-        # For AVL rotations.
+        # For AVL rotations
         self.factor = 0
 
     def dispose(self):
@@ -19,6 +19,9 @@ class Structure:
     def __init__(self):
         self.root = None
         self.is_avl = False
+
+        # For DEV
+        self.DEBUG = True
 
     def print_pre_order(self, node):
         if node is None:
@@ -57,11 +60,11 @@ class Structure:
         return bigest_node
 
     def _remove_node(self, current_node, node_to_remove):
-        # Inner function to reallocate pointers.
+        # Inner function to reallocate pointers
         def new_pointers(parent_node, node_to_remove, direction):
             # Simple cases left.
             if direction == 'L' and node_to_remove.left_child is None and node_to_remove.right_child is not None:
-                # Used only to remove root node.
+                # Used only to remove root node
                 if parent_node is None:
                     self.root = node_to_remove.right_child
                 else:
@@ -69,7 +72,7 @@ class Structure:
                 return True
 
             elif direction == 'L' and node_to_remove.left_child is not None and node_to_remove.right_child is None:
-                # Used only to remove root node.
+                # Used only to remove root node
                 if parent_node is None:
                     self.root = node_to_remove.left_child
                 else:
@@ -79,7 +82,7 @@ class Structure:
             # Both not nulls.
             elif direction == 'L' and node_to_remove.left_child is not None and node_to_remove.right_child is not None: 
                 new_node = self._search_smallest_into_rigth(node_to_remove)
-                # Used only to remove root node.
+                # Used only to remove root node
                 if parent_node is None:
                     self.root = new_node
                 else:
@@ -90,7 +93,7 @@ class Structure:
                 new_node.right_child = node_to_remove.right_child
                 return True
 
-            # Both nulls.
+            # Both nulls
             elif direction == 'L' and node_to_remove.left_child is None and node_to_remove.right_child is None:
                 if parent_node is None:
                     self.root = None
@@ -98,7 +101,7 @@ class Structure:
                     parent_node.left_child = None
                 return True
     
-            # Simple cases right.
+            # Simple cases right
             elif direction == 'R' and node_to_remove.left_child is None and node_to_remove.right_child is not None:
                 parent_node.right_child = node_to_remove.right_child
                 return True
@@ -107,7 +110,7 @@ class Structure:
                 parent_node.right_child = node_to_remove.left_child
                 return True
 
-            # Both not nulls.
+            # Both not nulls
             elif direction == 'R' and node_to_remove.left_child is not None and node_to_remove.right_child is not None: 
                 new_node = self._search_bigest_into_left(node_to_remove)
                 parent_node.right_child = new_node
@@ -117,7 +120,7 @@ class Structure:
                 new_node.left_child = node_to_remove.left_child
                 return True
 
-            # Both nulls.
+            # Both nulls
             elif direction == 'R' and node_to_remove.left_child is None and node_to_remove.right_child is None: 
                 parent_node.right_child = None
                 return True
@@ -132,7 +135,7 @@ class Structure:
                 return new_pointers(current_node, current_node.right_child, 'R')
 
         elif node_to_remove.value == current_node.value:
-            # Root node.
+            # Root node
             if node_to_remove == self.root:
                 return new_pointers(None, self.root, 'L')
             return 'found'
@@ -163,7 +166,7 @@ class Structure:
     def remove_node(self, value):
         root = self.root
         node_found = self.search_node(value)
-        # Border case.
+        # Border case
         if node_found is None:
             return False
         if self._remove_node(root, node_found):
@@ -171,7 +174,7 @@ class Structure:
             return
 
     def add_node(self, value):
-        # Border case.
+        # Border case
         if self.root is None:
             self.root = Node(value)
             return
