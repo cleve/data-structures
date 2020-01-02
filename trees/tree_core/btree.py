@@ -177,7 +177,7 @@ class Structure:
         # Border case
         if self.root is None:
             self.root = Node(value)
-            return
+            return self.root
         root = self.root
         new_node = Node(value)
-        self._add_node(root, new_node)
+        return self._add_node(root, new_node) is not None

@@ -30,3 +30,11 @@ Not implemented yet
 
 In every main class there is a DEBUG variable, setting it to True, you will be able to 
 see extra information in the CLI.
+
+## Unittest
+
+Execute the classic
+
+```sh
+python -m unittest
+```
