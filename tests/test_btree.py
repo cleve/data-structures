@@ -16,7 +16,7 @@ class TestBtreeMethods(unittest.TestCase):
         self.assertTrue(node_inserted_l)
 
         node_inserted_eq = tree.add_node(10)
-        self.assertTrue(node_inserted_eq)
+        self.assertFalse(node_inserted_eq)
 
 if __name__ == '__main__':
     unittest.main()

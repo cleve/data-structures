@@ -143,6 +143,9 @@ class Structure:
         return True
     
     def _add_node(self, node, new_node):
+        # Check if the value is already into the tree
+        if self._search_node(self.root, new_node.value) is not None:
+            return None
         if new_node.value < node.value:
             if node.left_child is None:
                 node.left_child = new_node
