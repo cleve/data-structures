@@ -172,10 +172,8 @@ class Structure:
         # Border case
         if node_found is None:
             return False
-        if self._remove_node(root, node_found):
-            node_found = None
-            return
-
+        return self._remove_node(root, node_found)
+        
     def add_node(self, value):
         # Border case
         if self.root is None:
