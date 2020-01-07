@@ -33,8 +33,9 @@ see extra information in the CLI.
 
 ## Unittest
 
-Execute the classic
+Execute the next command in the root directory:
 
 ```sh
-python -m unittest
+# -v to add more details, you can remove this arg
+python -m unittest discover tests -v
 ```
