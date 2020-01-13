@@ -39,6 +39,23 @@ class TestBtreeMethods(unittest.TestCase):
         tree.add_node(30)
         tree.add_node(50)
         self.assertTrue(tree.remove_node(10))
+
+    def test_public_search_node(self):
+        # Creating object
+        tree = trees.tree_core.btree.Structure()
+        tree.add_node(10)
+        tree.add_node(20)
+        tree.add_node(30)
+        tree.add_node(5)
+
+        # Existing node
+        self.assertTrue(tree.search_node(10))
+        self.assertTrue(tree.search_node(20))
+        self.assertTrue(tree.search_node(30))
+        self.assertTrue(tree.search_node(5))
+
+        # None existing
+        self.assertFalse(tree.search_node(1000))
         
 if __name__ == '__main__':
     unittest.main()
