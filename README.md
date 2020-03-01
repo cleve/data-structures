@@ -15,7 +15,7 @@ python3 cli_tree.py
 
 ## Linked list
 
-The list structure is under the **linked-list** directory. To use the interactive
+The list structure is under the **linked_list** directory. To use the interactive
 CLI, you need to run:
 
 ```python
@@ -24,7 +24,15 @@ python3 cli_list.py
 
 ## Hash Table
 
-Not implemented yet
+The hash structure is under the **hash** directory. To use the interactive
+CLI, you need to run:
+
+```python
+python3 cli_hash.py
+```
+
+The current hash function is based in the simple length of the value provided. To solve collisions
+a linked list is implemented for the hash involved.
 
 ## DEV
 
