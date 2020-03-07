@@ -1,21 +1,36 @@
 import unittest
-import trees.tree_core
+import linked_list.list_core.linked_list
 
 class TestBtreeMethods(unittest.TestCase):
 
-    def test_upper(self):
-        self.assertEqual('foo'.upper(), 'FOO')
+    def test_add_element(self):
+        list_object = linked_list.list_core.linked_list.LinkedList()
+        elements = 7
+        for element in range(elements):
+            list_object.add_node(element)
+        self.assertEqual(elements, list_object.count_elements())
 
-    def test_isupper(self):
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('Foo'.isupper())
+    def test_add_equals_elements(self):
+        list_object = linked_list.list_core.linked_list.LinkedList()
+        self.assertEqual(0, list_object.count_elements())
+        list_object.add_node(1)
+        list_object.add_node(2)
+        list_object.add_node(3)
+        self.assertEqual(3, list_object.count_elements())
+        list_object.add_node(3)
+        list_object.add_node(3)
+        list_object.add_node(3)
+        self.assertEqual(6, list_object.count_elements())
 
-    def test_split(self):
-        s = 'hello world'
-        self.assertEqual(s.split(), ['hello', 'world'])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
+    def test_remove_elements(self):
+        list_object = linked_list.list_core.linked_list.LinkedList()
+        list_object.add_node(1)
+        list_object.add_node(2)
+        list_object.add_node(3)
+        list_object.add_node(3)
+        list_object.add_node(3)
+        list_object.remove_node(3)
+        self.assertEqual(4, list_object.count_elements())
 
 if __name__ == '__main__':
     unittest.main()

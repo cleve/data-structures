@@ -9,6 +9,20 @@ class LinkedList:
         self.root = None
         self.last_node = None
 
+    def count_elements(self):
+        temporal_pointer = self.root
+        counter = 0
+        # Border case
+        if self.root is None:
+            return 0
+        
+        while True:
+            counter += 1
+            if temporal_pointer.next is None:
+                break
+            temporal_pointer = temporal_pointer.next
+        return counter
+
     def print_list(self):
         temporal_pointer = self.root
         while True:
