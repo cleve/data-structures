@@ -16,7 +16,7 @@ def input_to_numeric(msg):
 def start():
     l_list = linked_list.LinkedList()
     while True:
-        order = input_to_numeric("options:\n\n1) Add node\n2) Delete node\n3) Search node\n4) Print list\n5) Quit\n\nOption selected? ")
+        order = input_to_numeric("options:\n\n1) Add node\n2) Delete node\n3) Search node\n4) Print list\n5) Count nodes\n6) Quit\n\nOption selected? ")
         if order == 1:
             node_value = input_to_numeric("Insert value: ")
             l_list.add_node(node_value)
@@ -31,6 +31,9 @@ def start():
             l_list.print_list()
 
         if order == 5:
+            l_list.count()
+
+        if order == 6:
             break
 
 start()

@@ -9,7 +9,7 @@ class LinkedList:
         self.root = None
         self.last_node = None
 
-    def count_elements(self):
+    def _count_elements(self):
         temporal_pointer = self.root
         counter = 0
         # Border case
@@ -51,6 +51,9 @@ class LinkedList:
                 break
             temporal_pointer = temporal_pointer.next
         return None
+
+    def count(self):
+        print(self._count_elements())
 
     def find_node(self, value):
         """Return True if the element exists, False otherwise
