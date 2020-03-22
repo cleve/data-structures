@@ -1,7 +1,7 @@
 import unittest
 import linked_list.list_core.linked_list
 
-class TestBtreeMethods(unittest.TestCase):
+class TestLinkedListMethods(unittest.TestCase):
 
     def test_add_element(self):
         list_object = linked_list.list_core.linked_list.LinkedList()

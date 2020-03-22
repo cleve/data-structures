@@ -15,6 +15,9 @@ def input_to_numeric(msg):
 
 def start():
     hash_object = hash_table.HashTable()
+    hash_object.hash_selection = input_to_numeric(hash_object.hash_doc)
+    if hash_object.hash_selection == -1:
+            hash_object.hash_selection = 1
     while True:
         order = input_to_numeric("options:\n\n1) Add node\n2) Delete node\n3) Search node\n4) Print hash\n5) Quit\n\nOption selected? ")
         if order == 1:
