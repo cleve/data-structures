@@ -9,8 +9,18 @@ class HashTable:
         # Using a dictionary to mapping
         self.hash_table = {}
 
-    def hash_function(self, value):
-        return len(str(value))
+    def hash_function(self, value, function=1):
+        def str_to_ascii(value):
+            return ''.join(str(ord(c)) for c in value)
+
+        def get_len(value):
+            return len(str(value))
+
+        if function == 1:
+            return get_len(value)
+
+        if function == 2:
+            return str_to_ascii(value)
 
     def check_colision(self, hash_of_value):
         if hash_of_value in self.hash_table:
