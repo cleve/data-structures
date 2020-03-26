@@ -44,6 +44,7 @@ see extra information in the CLI.
 Execute the next command in the root directory:
 
 ```sh
-# -v to add more details, you can remove this arg
+# -v to add more details, you can remove this arg.
+# Use python3 if you have both versions.
 python -m unittest discover tests -v
 ```
